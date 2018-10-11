@@ -108,7 +108,7 @@ void GEXState::draw()
 
 }
 
-bool GEXState::update(sf::Time dt, GEX::CommandQueue& commands)
+bool GEXState::update(sf::Time dt)
 {
 	// b) pauses the game 
 	return false;

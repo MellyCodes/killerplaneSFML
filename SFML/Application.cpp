@@ -114,9 +114,9 @@ void Application::processInput()
 	}
 }
 
-void Application::update(sf::Time dt, GEX::CommandQueue& commands)
+void Application::update(sf::Time dt)
 {
-	stateStack_.update(dt, commands);
+	stateStack_.update(dt);
 }
 
 void Application::render()

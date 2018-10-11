@@ -42,11 +42,11 @@ namespace GEX
 	StateStack::~StateStack()
 	{}
 
-	void StateStack::update(sf::Time dt, CommandQueue& commands)
+	void StateStack::update(sf::Time dt)
 	{
 		for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr)
 		{
-			if (!(*itr)->update(dt, commands))
+			if (!(*itr)->update(dt))
 				break;
 		}
 	}

@@ -58,7 +58,7 @@ namespace  GEX
 		void													registerState(StateID stateID);
 
 		void													draw();
-		void													update(sf::Time dt, CommandQueue& commands);
+		void													update(sf::Time dt);
 		void													handleEvent(const sf::Event& event);
 
 		void													pushState(StateID stateID);

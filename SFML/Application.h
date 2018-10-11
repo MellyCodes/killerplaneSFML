@@ -50,7 +50,7 @@ public:
 
 private:
 	void						processInput();
-	void						update(sf::Time dt, GEX::CommandQueue& commands);
+	void						update(sf::Time dt);
 	void						render();
 
 	void						updateStatistics(sf::Time dt);

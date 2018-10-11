@@ -38,7 +38,7 @@ public:
 	GEXState(GEX::StateStack& stack, Context context);
 
 	void					draw() override;
-	bool					update(sf::Time dt, GEX::CommandQueue& commands)override;
+	bool					update(sf::Time dt)override;
 	bool					handleEvent(const sf::Event& event) override;
 
 

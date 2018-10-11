@@ -41,13 +41,14 @@ void GameState::draw()
 	world_.draw();
 }
 
-bool GameState::update(sf::Time dt, GEX::CommandQueue& commands)
+bool GameState::update(sf::Time dt)
 {
-	world_.update(dt, commands);
-
+	
 	//GEX::CommandQueue&
 	auto& commands = world_.getCommandQueue();
 	player_.handleRealTimeInput(commands);
+
+	world_.update(dt, commands);
 
 	return true;
 }
