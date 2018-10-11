@@ -33,8 +33,18 @@ std::map<GEX::Projectile::Type, GEX::ProjectileData> GEX::initializeProjectileDa
 	std::map<Projectile::Type, ProjectileData> data;
 
 	data[Projectile::Type::AlliedBullet].damage = 10;
+	data[Projectile::Type::AlliedBullet].speed = 300.f;
+	data[Projectile::Type::AlliedBullet].texture = TextureID::Bullet;
 
-	return std::map<Projectile::Type, ProjectileData>();
+	data[Projectile::Type::EnemyBulletType].damage = 10;
+	data[Projectile::Type::EnemyBulletType].speed = 300.f;
+	data[Projectile::Type::EnemyBulletType].texture = TextureID::Bullet;
+
+	data[Projectile::Type::Missile].damage = 200;
+	data[Projectile::Type::Missile].speed = 150.f;
+	data[Projectile::Type::Missile].texture = TextureID::Missile;
+
+	return data;
 }
 
 
@@ -46,25 +56,31 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	data[AircraftType::EAGLE].hitpoint = 100;
 	data[AircraftType::EAGLE].speed = 200.f;
 	data[AircraftType::EAGLE].texture = TextureID::Eagle;
+	data[AircraftType::EAGLE].fireInterval = sf::seconds(1);
 
 
 	// enemies
 	data[AircraftType::RAPTOR].hitpoint = 20;
 	data[AircraftType::RAPTOR].speed = 80.f;
 	data[AircraftType::RAPTOR].texture = TextureID::Raptor;
+	data[AircraftType::RAPTOR].fireInterval = sf::Time::Zero;
+
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(-45.f, 160.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
-
+	
 
 	data[AircraftType::AVENGER].hitpoint = 40;
 	data[AircraftType::AVENGER].speed = 50.f;
 	data[AircraftType::AVENGER].texture = TextureID::Avenger;
+	data[AircraftType::AVENGER].fireInterval = sf::seconds(2);
+
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(45.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(0.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(-45.f, 100.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(0.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(45.f, 50.f));
+	data[AircraftType::AVENGER].fireInterval = sf::seconds(2);
 
 
 	

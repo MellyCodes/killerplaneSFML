@@ -45,7 +45,7 @@ namespace GEX
 
 		void operator()(Aircraft& aircraft, sf::Time dt)const
 		{
-			aircraft.accelerate(velocity);			
+			aircraft.accelerate(velocity);
 		}
 
 		sf::Vector2f velocity;
@@ -68,7 +68,7 @@ namespace GEX
 		float rotation;
 
 	};
-	
+
 	PlayerControl::PlayerControl()
 	{
 		//set up bindings
@@ -85,13 +85,13 @@ namespace GEX
 		keyBindings_[sf::Keyboard::S] = Action::MOVE_DOWN;
 
 		//
-		keyBindings_[sf::Keyboard::R] = Action::ROLL_RIGHT;
-		keyBindings_[sf::Keyboard::L] = Action::ROLL_LEFT;
+		keyBindings_[sf::Keyboard::Space] = Action::FIRE;
+		keyBindings_[sf::Keyboard::M] = Action::LAUNCH_MISSILE;
 
 		//set up action bindings
 		initializeActions();
 
-		for(auto& pair : actionBindings_)
+		for (auto& pair : actionBindings_)
 		{
 			pair.second.category = Category::PlayerAircraft;
 		}
@@ -112,7 +112,7 @@ namespace GEX
 	void PlayerControl::handleRealTimeInput(CommandQueue & commands)
 	{
 		// Traverse all assigned keys and check if they are pressed
-		for(auto pair: keyBindings_)
+		for (auto pair : keyBindings_)
 		{
 			// If key is pressed, lookup action and trigger corresponding command
 			if (sf::Keyboard::isKeyPressed(pair.first) && isRealTimeAction(pair.second))
@@ -126,22 +126,24 @@ namespace GEX
 	{
 		const float playerSpeed = 200.f;
 
+		// Movements
+
 		actionBindings_[Action::MOVE_LEFT].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
-		
+
 		actionBindings_[Action::MOVE_RIGHT].action = derivedAction<Aircraft>(AircraftMover(+playerSpeed, 0.f));
 
-		actionBindings_[Action::MOVE_UP].action = derivedAction<Aircraft>(AircraftMover(0.f,-playerSpeed));
+		actionBindings_[Action::MOVE_UP].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
 
 		actionBindings_[Action::MOVE_DOWN].action = derivedAction<Aircraft>(AircraftMover(0.f, +playerSpeed));
 
-	/*	if()
-		{
-			
-		}*/
-	
-		actionBindings_[Action::ROLL_LEFT].action = derivedAction<Aircraft>(AircraftRotater(-1.f));
+		// Fire and Launch Missile
 
-		actionBindings_[Action::ROLL_RIGHT].action = derivedAction<Aircraft>(AircraftRotater(1.f));
+		actionBindings_[Action::FIRE].action = derivedAction<Aircraft>(std::bind(&Aircraft::fire, std::placeholders::_1));
+		actionBindings_[Action::FIRE].category = Category::Type::PlayerAircraft;
+
+
+		actionBindings_[Action::LAUNCH_MISSILE].action = derivedAction<Aircraft>(std::bind(&Aircraft::launchMissile, std::placeholders::_1));
+		actionBindings_[Action::LAUNCH_MISSILE].category = Category::Type::PlayerAircraft;
 
 	}
 
@@ -161,7 +163,7 @@ namespace GEX
 		}
 	}
 
-	
+
 
 }
 

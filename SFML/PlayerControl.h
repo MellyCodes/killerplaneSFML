@@ -45,7 +45,9 @@ namespace GEX
 		MOVE_UP,
 		MOVE_DOWN,
 		ROLL_LEFT,
-		ROLL_RIGHT
+		ROLL_RIGHT,
+		FIRE,
+		LAUNCH_MISSILE
 	};
 
 	class PlayerControl

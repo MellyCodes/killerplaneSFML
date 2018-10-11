@@ -32,7 +32,8 @@ namespace GEX
 	enum class TextureID
 	{
 		Landscape,
-		Airplane, 
+		Airplane,
+		Bullet,
 		Missile, 
 		Eagle, 
 		Raptor, 
