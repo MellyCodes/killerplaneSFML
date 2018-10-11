@@ -56,7 +56,7 @@ void TitleState::draw()
 
 }
 
-bool TitleState::update(sf::Time dt)
+bool TitleState::update(sf::Time dt, GEX::CommandQueue& commands)
 {
 	textEffectTime_ += dt;
 

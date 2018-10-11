@@ -47,7 +47,7 @@ namespace GEX
 	public:
 		explicit					World(sf::RenderWindow& window);
 
-		void						update(sf::Time dt);
+		void						update(sf::Time dt, CommandQueue& commands);
 		void						draw();
 
 		CommandQueue&				getCommandQueue();
@@ -58,8 +58,13 @@ namespace GEX
 		void						buildScene();
 		void						adaptPlayerPosition();
 		void						adaptPlayerVelocity();
-		
 
+		void						addEnemies();
+		void						addEnemy(AircraftType type, float rel_x, float rel_y);
+		void						spawnEnemies();
+
+		sf::FloatRect				getViewBounds()const;
+		sf::FloatRect				getBattlefieldBounds()const;
 	private:
 		enum Layer
 		{
@@ -68,8 +73,20 @@ namespace GEX
 			LayerCount
 		};
 
-	private:
+		struct SpawnPoint
+		{
+			SpawnPoint(AircraftType _type, float _x, float _y)
+				:	type(_type)
+				,	x(_x)
+				,	y(_y)
+			{}
 
+			AircraftType type;
+			float			x;
+			float			y;
+		};
+
+	private:
 		sf::RenderWindow&			window_;
 		sf::View					worldView_;
 		TextureManager				textures_;
@@ -83,7 +100,7 @@ namespace GEX
 		CommandQueue				commandQueue_;
 		
 		Aircraft*					playerAircraft_;
-
+		std::vector<SpawnPoint>		enemySpawnPoints_;
 	};
 
 }

@@ -74,7 +74,7 @@ void MenuState::draw()
 	
 }
 
-bool MenuState::update(sf::Time dt)
+bool MenuState::update(sf::Time dt, GEX::CommandQueue& commands)
 {
 	return true;
 }

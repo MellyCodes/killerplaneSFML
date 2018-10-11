@@ -35,6 +35,7 @@
 
 namespace GEX
 {
+	class CommandQueue;
 	//forward declarations
 	class StateStack;
 	class PlayerControl;
@@ -65,7 +66,7 @@ namespace GEX
 		virtual					~State();
 
 		virtual void			draw() = 0;
-		virtual bool			update(sf::Time) = 0;
+		virtual bool			update(sf::Time, CommandQueue& commands) = 0;
 		virtual bool			handleEvent(const sf::Event& event) = 0;
 
 	protected:

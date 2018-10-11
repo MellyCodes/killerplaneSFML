@@ -28,13 +28,17 @@
 #pragma once
 #include "State.h"
 
+namespace GEX {
+	class CommandQueue;
+}
+
 class TitleState : public GEX::State
 {
 public:
 							TitleState(GEX::StateStack& stack, Context context);
 
 	void					draw() override;
-	bool					update(sf::Time dt)override;
+	bool					update(sf::Time dt, GEX::CommandQueue& commands)override;
 	bool					handleEvent(const sf::Event& event) override;
 
 private:

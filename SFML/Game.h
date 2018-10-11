@@ -42,7 +42,7 @@ public:
 
 private:
 	void				processInput();
-	void				update(sf::Time deltaTime);
+	void				update(sf::Time deltaTime, CommandQueue& commands);
 	void				render();
 	
 	void				updateStatistics(sf::Time deltaTime);

@@ -39,6 +39,8 @@
 
 namespace GEX
 {
+	//Forward Declaration
+	class CommandQueue;
 
 	//Forward Declaration
 	struct Command;
@@ -60,7 +62,7 @@ namespace GEX
 		void							attachChild(Ptr child);
 		Ptr								detachChild(const SceneNode& node);
 
-		void							update(sf::Time dt);
+		void							update(sf::Time dt, CommandQueue& commands);
 		void							onCommand(const Command& command, sf::Time dt);
 		virtual unsigned int			getCategory() const;
 
@@ -69,8 +71,8 @@ namespace GEX
 
 	protected:
 		//update the tree
-		virtual void					updateCurrent(sf::Time dt);
-		void							updateChildren(sf::Time dt);
+		virtual void					updateCurrent(sf::Time dt, CommandQueue& commands);
+		void							updateChildren(sf::Time dt, CommandQueue& commands);
 
 	private:
 		//draw the tree

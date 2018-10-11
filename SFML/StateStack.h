@@ -30,6 +30,7 @@
 #include "StateIdentifiers.h"
 #include "State.h"
 #include <functional>
+#include "CommandQueue.h"
 
 namespace sf
 {
@@ -57,7 +58,7 @@ namespace  GEX
 		void													registerState(StateID stateID);
 
 		void													draw();
-		void													update(sf::Time dt);
+		void													update(sf::Time dt, CommandQueue& commands);
 		void													handleEvent(const sf::Event& event);
 
 		void													pushState(StateID stateID);

@@ -66,7 +66,7 @@ void PauseState::draw()
 	window.draw(instructionText_);
 }
 
-bool PauseState::update(sf::Time dt)
+bool PauseState::update(sf::Time dt, GEX::CommandQueue& commands)
 {
 	return false;
 }

@@ -42,11 +42,11 @@ namespace GEX
 	StateStack::~StateStack()
 	{}
 
-	void StateStack::update(sf::Time dt)
+	void StateStack::update(sf::Time dt, CommandQueue& commands)
 	{
 		for (auto itr = stack_.rbegin(); itr != stack_.rend(); ++itr)
 		{
-			if (!(*itr)->update(dt))
+			if (!(*itr)->update(dt, commands))
 				break;
 		}
 	}
@@ -78,7 +78,7 @@ namespace GEX
 	void StateStack::popState()
 	{
 		pendingList_.push_back(PendingChange(Action::Pop));
-	}
+	}	
 
 	void StateStack::clearStates()
 	{

@@ -94,7 +94,7 @@ namespace GEX
 		return velocity_;
 	}
 
-	void Entity::updateCurrent(sf::Time dt)
+	void Entity::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
 		move(velocity_ * dt.asSeconds());
 	}

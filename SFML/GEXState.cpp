@@ -28,6 +28,7 @@
 #include "GEXState.h"
 #include "Utility.h"
 #include "FontManager.h"
+#include "CommandQueue.h"
 
 GEXState::GEXState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
@@ -107,7 +108,7 @@ void GEXState::draw()
 
 }
 
-bool GEXState::update(sf::Time dt)
+bool GEXState::update(sf::Time dt, GEX::CommandQueue& commands)
 {
 	// b) pauses the game 
 	return false;

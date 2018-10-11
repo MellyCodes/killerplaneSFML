@@ -48,7 +48,7 @@ namespace GEX
 		worldView_.setCenter(spawnPosition_);
 	}
 
-	void World::update(sf::Time dt)
+	void World::update(sf::Time dt, CommandQueue& commands)
 	{		
 		// scroll the world
 		worldView_.move(0.f, scrollSpeed_ * dt.asSeconds());
@@ -61,8 +61,71 @@ namespace GEX
 		}
 
 		adaptPlayerVelocity();
-		sceneGraph_.update(dt);
+		sceneGraph_.update(dt, commands);
 		adaptPlayerPosition();
+		spawnEnemies();
+	}
+
+	void World::addEnemies()
+	{
+		addEnemy(AircraftType::RAPTOR, -250.f, 200.f);
+		addEnemy(AircraftType::RAPTOR, 0.f, 200.f);
+		addEnemy(AircraftType::RAPTOR, 250.f, 200.f);
+
+		addEnemy(AircraftType::RAPTOR, -250.f, 600.f);
+		addEnemy(AircraftType::RAPTOR, 0.f, 600.f);
+		addEnemy(AircraftType::RAPTOR, 250.f, 600.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 400.f); 
+		addEnemy(AircraftType::AVENGER, 70.f, 400.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 800.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 800.f);
+
+		addEnemy(AircraftType::AVENGER, -170.f, 850.f);
+		addEnemy(AircraftType::AVENGER, 170.f, 850.f);
+		//addEnemy(AircraftType::RAPTOR, -250.f, 200.f);
+
+		std::sort(enemySpawnPoints_.begin(), enemySpawnPoints_.end(), 
+			[](SpawnPoint lhs, SpawnPoint rhs)
+			{
+				return lhs.y < rhs.y;
+			});
+	}
+
+	void World::addEnemy(AircraftType type, float rel_x, float rel_y)
+	{
+		SpawnPoint spawnPoint(type, spawnPosition_.x + rel_x, spawnPosition_.y - rel_y);
+		enemySpawnPoints_.push_back(spawnPoint);
+	}
+
+	void World::spawnEnemies()
+	{
+		while(!enemySpawnPoints_.empty() && 
+			enemySpawnPoints_.back().y > getBattlefieldBounds().top)
+		{
+			auto spawnPoint = enemySpawnPoints_.back();
+			std::unique_ptr<Aircraft> enemy(new Aircraft(spawnPoint.type, textures_));
+			enemy->setPosition(spawnPoint.x, spawnPoint.y);
+			enemy->setRotation(180);
+			sceneLayers_[Air]->attachChild(std::move(enemy));
+			enemySpawnPoints_.pop_back();
+		}
+
+	}
+
+	sf::FloatRect World::getViewBounds() const
+	{
+
+		return sf::FloatRect(worldView_.getCenter() - worldView_.getSize() / 2.f, worldView_.getSize());
+	}
+
+	sf::FloatRect World::getBattlefieldBounds() const
+	{
+		sf::FloatRect bounds = getViewBounds();
+		bounds.top -= 100.f;
+		bounds.height += 100.f;
+		return bounds;
 	}
 
 	void World::draw()
@@ -112,37 +175,8 @@ namespace GEX
 		playerAircraft_ = leader.get();
 		sceneLayers_[Air]->attachChild(std::move(leader));
 
-		//add escort planes
-
-		// left escort aircraft
-		std::unique_ptr<Aircraft> leftEscort(new Aircraft(AircraftType::RAPTOR, textures_));
-		leftEscort->setPosition(-80.f, 50.f);
-		playerAircraft_->attachChild(std::move(leftEscort));
-
-		// right escort aircraft
-		std::unique_ptr<Aircraft> rightEscort(new Aircraft(AircraftType::AVENGER, textures_));
-		rightEscort->setPosition(80.f, 50.f);
-		playerAircraft_->attachChild(std::move(rightEscort));
-
-
 		// add enemy aircrafts
-		std::unique_ptr<Aircraft> enemy(new Aircraft(AircraftType::AVENGER, textures_));
-		enemy->setPosition(spawnPosition_.x - 100 , spawnPosition_.y - 600);
-		enemy->setVelocity(0.f, - scrollSpeed_);
-		enemy->setRotation(180);
-		sceneLayers_[Air]->attachChild(std::move(enemy));
-
-		enemy = std::unique_ptr<Aircraft> (new Aircraft(AircraftType::RAPTOR, textures_));
-		enemy->setPosition(spawnPosition_.x + 100, spawnPosition_.y - 600);
-		enemy->setVelocity(50.f, -scrollSpeed_);
-		enemy->setRotation(180);
-		sceneLayers_[Air]->attachChild(std::move(enemy));
-
-		enemy = std::unique_ptr<Aircraft>(new Aircraft(AircraftType::RAPTOR, textures_));
-		enemy->setPosition(spawnPosition_.x - 400, spawnPosition_.y - 600);
-		enemy->setVelocity(50.f, -scrollSpeed_);
-		enemy->setRotation(180);
-		sceneLayers_[Air]->attachChild(std::move(enemy));
+		addEnemies();
 
 	}
 
@@ -172,6 +206,8 @@ namespace GEX
 		// Add scrolling velocity
 		playerAircraft_->accelerate(0.f, scrollSpeed_);
 	}
+
+
 
 
 

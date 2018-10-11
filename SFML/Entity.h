@@ -52,7 +52,7 @@ namespace GEX
 		virtual bool	isDestroyed() const;
 
 	protected:
-		void			updateCurrent(sf::Time dt)override;
+		void			updateCurrent(sf::Time dt, CommandQueue& commands)override;
 
 
 	private:

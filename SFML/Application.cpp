@@ -71,6 +71,7 @@ void Application::run()
 {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	
 
 	while (window_.isOpen())
 	{
@@ -113,9 +114,9 @@ void Application::processInput()
 	}
 }
 
-void Application::update(sf::Time dt)
+void Application::update(sf::Time dt, GEX::CommandQueue& commands)
 {
-	stateStack_.update(dt);
+	stateStack_.update(dt, commands);
 }
 
 void Application::render()

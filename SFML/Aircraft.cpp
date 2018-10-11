@@ -31,6 +31,7 @@
 #include "TextNode.h"
 #include <string>
 #include "Utility.h"
+#include "CommandQueue.h"
 
 namespace GEX
 {
@@ -105,10 +106,10 @@ namespace GEX
 		healthDisplay_->setRotation(-getRotation());
 	}
 
-	void Aircraft::updateCurrent(sf::Time dt)
+	void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
 		updateMovementPattern(dt);
-		Entity::updateCurrent(dt);
+		Entity::updateCurrent(dt, commands);
 		updateTexts();
 	}
 }

@@ -99,9 +99,9 @@ void Game::processInput()
 	player_.handleRealTimeInput(commands);
 }
 
-void Game::update(sf::Time deltaTime)
+void Game::update(sf::Time deltaTime, GEX::CommandQueue& commands)
 {	
-	world_.update(deltaTime);
+	world_.update(deltaTime, commands);
 }
 
 void Game::render()

@@ -26,6 +26,17 @@
 */
 
 #include "DataTables.h"
+#include "Projectile.h"
+
+std::map<GEX::Projectile::Type, GEX::ProjectileData> GEX::initializeProjectileData()
+{
+	std::map<Projectile::Type, ProjectileData> data;
+
+	data[Projectile::Type::AlliedBullet].damage = 10;
+
+	return std::map<Projectile::Type, ProjectileData>();
+}
+
 
 std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 {

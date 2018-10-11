@@ -46,7 +46,7 @@ namespace GEX
 		void				updateTexts(); // update mini health and missile display
 
 	protected:
-		void				updateCurrent(sf::Time dt) override;
+		void				updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
 	private:
 		void				updateMovementPattern(sf::Time dt);
