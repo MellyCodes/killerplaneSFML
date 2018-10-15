@@ -43,6 +43,7 @@ namespace GEX {
 
 	void Projectile::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
 	{
+		target.draw(sprite_, states);
 	}
 
 }

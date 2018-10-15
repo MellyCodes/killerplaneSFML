@@ -40,7 +40,7 @@ namespace sf {
 	class Time;
 }
 
-	class Application
+class Application
 {
 public:
 	Application();

@@ -142,12 +142,13 @@ namespace GEX
 
 	void World::loadTextures()
 	{
+		textures_.load(TextureID::Landscape, "Media/Textures/Desert.png");
+		textures_.load(TextureID::Bullet, "Media/Textures/Bullet.png");
+		textures_.load(TextureID::Missile, "Media/Textures/Missile.png");
 		textures_.load(TextureID::Eagle, "Media/Textures/Eagle.png");
 		textures_.load(TextureID::Raptor, "Media/Textures/Raptor.png");
 		textures_.load(TextureID::Avenger, "Media/Textures/Avenger.png");
-		textures_.load(TextureID::Landscape, "Media/Textures/Desert.png");
-		textures_.load(TextureID::Landscape, "Media/Textures/Bullet.png");
-		textures_.load(TextureID::Landscape, "Media/Textures/Missile.png");
+		
 	}
 
 	void World::buildScene()
@@ -156,7 +157,7 @@ namespace GEX
 		// initialize layers
 		for (int i = 0; i < LayerCount; ++i)
 		{
-			auto category = (i == Air) ? Category::Type::AirSceneLayer : Category::Type::None;
+			Category::Type category = (i == Air) ? Category::Type::AirSceneLayer : Category::Type::None;
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());
 			sceneGraph_.attachChild(std::move(layer));
@@ -169,12 +170,13 @@ namespace GEX
 
 		std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
+		background_ = backgroundSprite.get();
 		sceneLayers_[Backround]->attachChild(std::move(backgroundSprite));
 
 		// add player aircraft and game objects
 		std::unique_ptr<Aircraft> leader(new Aircraft(AircraftType::EAGLE, textures_));
 		leader->setPosition(spawnPosition_);
-		//leader->setVelocity(150.f, scrollSpeed_);
+		leader->setVelocity(50.f, scrollSpeed_*.3f);
 		playerAircraft_ = leader.get();
 		sceneLayers_[Air]->attachChild(std::move(leader));
 
@@ -209,10 +211,6 @@ namespace GEX
 		// Add scrolling velocity
 		playerAircraft_->accelerate(0.f, scrollSpeed_);
 	}
-
-
-
-
 
 }
 

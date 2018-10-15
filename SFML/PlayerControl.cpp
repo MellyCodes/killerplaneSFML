@@ -84,8 +84,9 @@ namespace GEX
 		keyBindings_[sf::Keyboard::Down] = Action::MOVE_DOWN;
 		keyBindings_[sf::Keyboard::S] = Action::MOVE_DOWN;
 
-		//
+		// Fire Bullets
 		keyBindings_[sf::Keyboard::Space] = Action::FIRE;
+		// LaunchMissile
 		keyBindings_[sf::Keyboard::M] = Action::LAUNCH_MISSILE;
 
 		//set up action bindings
@@ -129,21 +130,18 @@ namespace GEX
 		// Movements
 
 		actionBindings_[Action::MOVE_LEFT].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
-
 		actionBindings_[Action::MOVE_RIGHT].action = derivedAction<Aircraft>(AircraftMover(+playerSpeed, 0.f));
-
 		actionBindings_[Action::MOVE_UP].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
-
 		actionBindings_[Action::MOVE_DOWN].action = derivedAction<Aircraft>(AircraftMover(0.f, +playerSpeed));
 
 		// Fire and Launch Missile
 
 		actionBindings_[Action::FIRE].action = derivedAction<Aircraft>(std::bind(&Aircraft::fire, std::placeholders::_1));
-		actionBindings_[Action::FIRE].category = Category::Type::PlayerAircraft;
+		actionBindings_[Action::FIRE].category = Category::PlayerAircraft;
 
 
 		actionBindings_[Action::LAUNCH_MISSILE].action = derivedAction<Aircraft>(std::bind(&Aircraft::launchMissile, std::placeholders::_1));
-		actionBindings_[Action::LAUNCH_MISSILE].category = Category::Type::PlayerAircraft;
+		actionBindings_[Action::LAUNCH_MISSILE].category = Category::PlayerAircraft;
 
 	}
 
@@ -155,8 +153,7 @@ namespace GEX
 		case Action::MOVE_RIGHT:
 		case Action::MOVE_DOWN:
 		case Action::MOVE_UP:
-		case Action::ROLL_LEFT:
-		case Action::ROLL_RIGHT:
+		case Action::FIRE:
 			return true;
 		default:
 			return false;

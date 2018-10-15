@@ -30,9 +30,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include "TextureManager.h"
 #include "TextNode.h"
+#include "Command.h"
+#include "Projectile.h"
 
 namespace GEX
 {
+	class CommandQueue;
 	class TextNode;
 	enum class AircraftType{EAGLE, RAPTOR, AVENGER};
 
@@ -45,12 +48,22 @@ namespace GEX
 
 		void				updateTexts(); // update mini health and missile display
 
+		void				fire();
+		void				launchMissile();
+
+		bool				isAllied()const;
+
 	protected:
 		void				updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
 	private:
 		void				updateMovementPattern(sf::Time dt);
 		float				getMaxSpeed() const;
+
+		void				createBullets(SceneNode& node, const TextureManager& textures);
+		void				createProjectiles(SceneNode& node, Projectile::Type type, float xOffset, float yOffset, const TextureManager& textures);
+		void				checkProjectileLaunch(sf::Time dt, CommandQueue& commands);
+
 
 	private:
 		AircraftType		type_;
@@ -60,6 +73,21 @@ namespace GEX
 
 		float				travelDistance_;
 		std::size_t			directionIndex_;
+
+		bool				isFiring_;
+		bool				isLaunchingMissile_;
+		//int					count = 0;
+		int					fireRateLevel_;
+		int					fireSpreadLevel_;
+		int					missileAmmo_;
+
+		sf::Time			fireCountdown_;
+
+		Command				fireCommand_;
+		Command				launchMissileCommand_;
+
+
+
 	};
 
 

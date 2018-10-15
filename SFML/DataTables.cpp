@@ -63,17 +63,16 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	data[AircraftType::RAPTOR].hitpoint = 20;
 	data[AircraftType::RAPTOR].speed = 80.f;
 	data[AircraftType::RAPTOR].texture = TextureID::Raptor;
-	data[AircraftType::RAPTOR].fireInterval = sf::Time::Zero;
 
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(-45.f, 160.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
-	
+	data[AircraftType::RAPTOR].fireInterval = sf::Time::Zero;
+
 
 	data[AircraftType::AVENGER].hitpoint = 40;
 	data[AircraftType::AVENGER].speed = 50.f;
 	data[AircraftType::AVENGER].texture = TextureID::Avenger;
-	data[AircraftType::AVENGER].fireInterval = sf::seconds(2);
 
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(45.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(0.f, 50.f));

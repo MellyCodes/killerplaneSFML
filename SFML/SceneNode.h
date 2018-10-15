@@ -85,7 +85,8 @@ namespace GEX
 		SceneNode*						parent_;
 		std::vector<Ptr>				children_;
 
-		Category::Type					category_;
+
+		Category::Type					defaultCategory_;
 
 	};
 

@@ -95,9 +95,7 @@ void Application::run()
 		}
 
 		render();
-	}
-
-	
+	}	
 }
 
 void Application::processInput()

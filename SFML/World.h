@@ -97,6 +97,7 @@ namespace GEX
 		sf::FloatRect				worldBounds_;
 		sf::Vector2f				spawnPosition_;
 		float						scrollSpeed_;
+		SpriteNode*					background_;
 		CommandQueue				commandQueue_;
 		
 		Aircraft*					playerAircraft_;
