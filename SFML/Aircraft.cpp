@@ -224,7 +224,34 @@ namespace GEX
 		isLaunchingMissile_ = true;
 	}
 
+	void Aircraft::increaseFireRate()
+	{
+		if (fireRateLevel_ < 10) 
+		{
+			++fireRateLevel_;
+		}
+	}
 
+	void Aircraft::increaseFireSpread()
+	{
+		if (fireSpreadLevel_ < 3)
+		{
+			++fireSpreadLevel_;
+		}
+	}
+
+	void Aircraft::collectMissiles(unsigned int count)
+	{
+
+		missileAmmo_ += count;
+	}
+
+
+
+	sf::FloatRect Aircraft::getBoundingBox() const
+	{
+		return getWorldTransform().transformRect(sprite_.getGlobalBounds());
+	}
 
 	bool Aircraft::isAllied() const
 	{

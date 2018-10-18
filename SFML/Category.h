@@ -41,7 +41,11 @@ namespace Category
 		EnemyProjectile		= 1 << 4,
 		AlliedProjectile	= 1 << 5,
 		AirSceneLayer		= 1 << 6,
-
+		HealthRefill		= 1 << 7,
+		MissileRefill		= 1 << 8,
+		FireSpread			= 1 << 9,
+		FireRate			= 1 << 10,
+		Pickup				= 1 << 11,
 	};
 
 }

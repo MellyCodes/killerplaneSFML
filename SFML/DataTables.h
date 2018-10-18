@@ -30,6 +30,7 @@
 #include "Aircraft.h"
 #include <map>
 #include "Projectile.h"
+#include "Pickup.h"
 
 namespace GEX
 {
@@ -47,22 +48,28 @@ namespace GEX
 	
 	struct AircraftData
 	{
-		int					hitpoint;
-		float				speed;
-		TextureID			texture;
-		sf::Time			fireInterval;
+		int						hitpoint;
+		float					speed;
+		TextureID				texture;
+		sf::Time				fireInterval;
 
-		std::vector<Direction> directions;
+		std::vector<Direction>	directions;
 	};
 
 	struct ProjectileData
 	{
-		int					damage;
-		float				speed;
-		TextureID			texture;
+		int						damage;
+		float					speed;
+		TextureID				texture;
 	};
 
+	struct PickupData
+	{
+		std::function<void(Aircraft&)>	action;
+		TextureID						texture;
+	};
 
+	std::map<Pickup::Type, PickupData> initializePickupData();
 	std::map<Projectile::Type, ProjectileData> initializeProjectileData();
 	std::map<AircraftType, AircraftData> initializeAircraftData();
 

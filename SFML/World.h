@@ -65,6 +65,8 @@ namespace GEX
 
 		sf::FloatRect				getViewBounds()const;
 		sf::FloatRect				getBattlefieldBounds()const;
+
+		void						guideMissiles();
 	private:
 		enum Layer
 		{
@@ -102,6 +104,8 @@ namespace GEX
 		
 		Aircraft*					playerAircraft_;
 		std::vector<SpawnPoint>		enemySpawnPoints_;
+
+		std::vector<Aircraft*>		activeEnemies_;
 	};
 
 }

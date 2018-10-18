@@ -25,33 +25,34 @@
 * NBCC Academic Integrity Policy (policy 1111)
 */
 
-#pragma once
+#include "Pickup.h"
+#include "Utility.h"
+#include "DataTables.h"
+#include "Category.h"
 
-namespace GEX
-{
-	enum class TextureID
-	{
-		Landscape,
-		Airplane,
-		Bullet,
-		Missile, 
-		Eagle, 
-		Raptor, 
-		Avenger, 
-		TitleScreen, 
-		Face,
-		HealthRefill,
-		MissileRefill,
-		FireSpread,
-		FireRate,
-		
-	};
+namespace GEX {
 
-	enum class FontID
+	namespace
 	{
-		Main
-	};
+		const std::map<Pickup::Type, PickupData> TABLE = initializePickupData();
+	}
+
+	Pickup::Pickup(Type type, const TextureManager& textures)
+		: Entity(1)
+		, type_(type)
+		, sprite_(textures.get(TABLE.at(type).texture))
+	{
+		centerOrigin(sprite_);
+	}
+	unsigned int Pickup::getCategory() const
+	{
+		return Category::Pickup;
+	}
+
+	//sf::FloatRect Pickup::getBoundingRect()
+	//{
+	//	return sf::FloatRect();
+	//}
+
 }
-
-
 

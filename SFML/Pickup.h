@@ -26,32 +26,30 @@
 */
 
 #pragma once
+#include "Entity.h"
+#include "TextureManager.h"
 
-namespace GEX
-{
-	enum class TextureID
+namespace GEX {
+	class Pickup : public Entity
 	{
-		Landscape,
-		Airplane,
-		Bullet,
-		Missile, 
-		Eagle, 
-		Raptor, 
-		Avenger, 
-		TitleScreen, 
-		Face,
-		HealthRefill,
-		MissileRefill,
-		FireSpread,
-		FireRate,
-		
+	public:
+		enum class Type
+		{
+			HealthRefill,
+			MissileRefill,
+			FireSpread,
+			FireRate
+		};
+	public:
+		Pickup(Type type, const TextureManager& textures);
+		~Pickup() = default;
+
+		unsigned int			getCategory()const override;
+		sf::FloatRect			getBoundingRect();
+
+	private:
+		Type				type_;
+		sf::Sprite			sprite_;
 	};
 
-	enum class FontID
-	{
-		Main
-	};
 }
-
-
-

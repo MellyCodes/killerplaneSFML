@@ -28,8 +28,8 @@
 #include "SceneNode.h"
 #include <cassert>
 #include "Command.h"
-
-
+#include "Utility.h"
+#include <SFML/Graphics.hpp>
 
 namespace GEX
 {
@@ -85,6 +85,8 @@ namespace GEX
 		drawCurrent(target, states);
 		drawChildren(target, states);
 
+		drawBoundingBox(target, states);
+
 	}
 
 	void SceneNode::updateCurrent(sf::Time dt, CommandQueue& commands)
@@ -116,11 +118,8 @@ namespace GEX
 
 		// command children
 		for (Ptr& child : children_)
-			child->onCommand(command, dt);
-		
-	}
-
-	
+			child->onCommand(command, dt);		
+	}	
 
 	unsigned int SceneNode::getCategory() const
 	{
@@ -143,6 +142,31 @@ namespace GEX
 		}
 
 		return transform;
+	}
+
+	sf::FloatRect SceneNode::getBoundingBox() const
+	{
+		return sf::FloatRect();
+	}
+
+	void SceneNode::drawBoundingBox(sf::RenderTarget & target, sf::RenderStates states) const
+	{
+		sf::FloatRect rect = getBoundingBox();
+
+		sf::RectangleShape box;
+		box.setPosition(sf::Vector2f(rect.left, rect.top));
+		box.setSize(sf::Vector2f(rect.width, rect.height));
+
+		box.setFillColor(sf::Color::Transparent);
+		box.setOutlineColor(sf::Color::Cyan);
+		box.setOutlineThickness(1.f);
+
+		target.draw(box);
+	}
+
+	float distance(const SceneNode & lhs, const SceneNode & rhs)
+	{
+		return length(lhs.getWorldPosition() - rhs.getWorldPosition());
 	}
 
 }
