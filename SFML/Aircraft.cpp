@@ -196,12 +196,10 @@ namespace GEX
 		case AircraftType::EAGLE:
 			return Category::PlayerAircraft;
 			break;
-		case AircraftType::RAPTOR:
+		default:
 			return Category::EnemyAircraft;
 			break;
-		default:
-			return Category::None;
-			break;
+
 		}
 	}
 

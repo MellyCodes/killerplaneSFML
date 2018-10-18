@@ -28,6 +28,7 @@
 #pragma once
 #include "Entity.h"
 #include "TextureManager.h"
+#include "Aircraft.h"
 
 namespace GEX {
 	class Pickup : public Entity
@@ -46,8 +47,10 @@ namespace GEX {
 
 		unsigned int			getCategory()const override;
 		sf::FloatRect			getBoundingRect();
+		void					apply(Aircraft& player);
 
 	private:
+		void				drawCurrent(sf::RenderTarget& target, sf::RenderStates state)const;
 		Type				type_;
 		sf::Sprite			sprite_;
 	};

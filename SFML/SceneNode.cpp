@@ -164,9 +164,39 @@ namespace GEX
 		target.draw(box);
 	}
 
+	void SceneNode::checkSceneCollision(SceneNode & rootNode, std::set<Pair>& collisionPair)
+	{
+		checkNodeCollision(rootNode, collisionPair);
+		for (Ptr& c : rootNode.children_)
+		{
+			checkSceneCollision(*c, collisionPair);
+		}
+	}
+
+	void SceneNode::checkNodeCollision(SceneNode & node, std::set<Pair>& collisionPair)
+	{
+		//set of node pairs, no dupes
+		if (this != &node && collision(*this, node) && !isDestroyed() && !node.isDestroyed())				
+			collisionPair.insert(std::minmax(this, &node));
+		
+
+		for (Ptr&c : children_)
+			c->checkNodeCollision(node, collisionPair);
+	}
+
+	bool SceneNode::isDestroyed() const
+	{
+		return false;
+	}
+
 	float distance(const SceneNode & lhs, const SceneNode & rhs)
 	{
 		return length(lhs.getWorldPosition() - rhs.getWorldPosition());
+	}
+
+	bool collision(const SceneNode & lhs, const SceneNode & rhs)
+	{
+		return lhs.getBoundingBox().intersects(rhs.getBoundingBox());
 	}
 
 }

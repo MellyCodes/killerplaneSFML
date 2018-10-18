@@ -67,6 +67,7 @@ namespace GEX
 		sf::FloatRect				getBattlefieldBounds()const;
 
 		void						guideMissiles();
+		void						handleCollisions();
 	private:
 		enum Layer
 		{

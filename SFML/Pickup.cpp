@@ -49,10 +49,21 @@ namespace GEX {
 		return Category::Pickup;
 	}
 
-	//sf::FloatRect Pickup::getBoundingRect()
-	//{
-	//	return sf::FloatRect();
-	//}
+	sf::FloatRect Pickup::getBoundingRect()
+	{
+		return sf::FloatRect();
+	}
+
+	void Pickup::apply(Aircraft & player)
+	{
+		TABLE.at(type_).action(player);
+	}
+
+	void Pickup::drawCurrent(sf::RenderTarget & target, sf::RenderStates state) const
+	{
+		target.draw(sprite_, state);
+	}
+
 
 }
 

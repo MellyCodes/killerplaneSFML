@@ -34,6 +34,7 @@
 #include <vector>
 #include <memory>
 #include "Category.h"
+#include <set>
 
 
 namespace GEX
@@ -49,6 +50,7 @@ namespace GEX
 
 	public:
 		using Ptr = std::unique_ptr<SceneNode>;
+		using Pair = std::pair<SceneNode*, SceneNode*>;
 
 	public:
 
@@ -70,6 +72,11 @@ namespace GEX
 
 		virtual sf::FloatRect			getBoundingBox()const;
 		void							drawBoundingBox(sf::RenderTarget& target, sf::RenderStates states)const;
+
+		void							checkSceneCollision(SceneNode& rootNode, std::set<Pair>& collisionPair);
+		void							checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPair);
+
+		virtual bool					isDestroyed()const;
 	protected:
 		//update the tree
 		virtual void					updateCurrent(sf::Time dt, CommandQueue& commands);
@@ -93,6 +100,7 @@ namespace GEX
 	};
 
 	float distance(const SceneNode& lhs, const SceneNode& rhs);
+	bool collision(const SceneNode & lhs, const SceneNode & rhs);
 
 
 }
