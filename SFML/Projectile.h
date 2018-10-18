@@ -34,6 +34,7 @@ namespace GEX
 	private:
 		void				updateCurrent(sf::Time dt, CommandQueue& commands) override;
 		void				drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+		sf::FloatRect		getBoundingBox() const override;
 
 	private:
 

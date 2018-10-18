@@ -47,6 +47,11 @@ namespace GEX {
 		targetDirection_ = unitVector(position - getWorldPosition());
 	}
 
+	sf::FloatRect Projectile::getBoundingBox() const
+	{
+		return getWorldTransform().transformRect(sprite_.getGlobalBounds());
+	}
+
 	void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
 		if(isGuided())
