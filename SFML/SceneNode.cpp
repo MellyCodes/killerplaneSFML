@@ -163,7 +163,7 @@ namespace GEX
 
 		target.draw(box);
 	}
-
+	// comment
 	void SceneNode::checkSceneCollision(SceneNode & rootNode, std::set<Pair>& collisionPair)
 	{
 		checkNodeCollision(rootNode, collisionPair);
