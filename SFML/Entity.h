@@ -50,6 +50,7 @@ namespace GEX
 		void			repair(int points);
 		void			destroy();
 		bool			isDestroyed() const override;
+		void			remove();
 
 	protected:
 		void			updateCurrent(sf::Time dt, CommandQueue& commands)override;

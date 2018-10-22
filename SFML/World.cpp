@@ -53,8 +53,9 @@ namespace GEX
 	{		
 		// scroll the world
 		worldView_.move(0.f, scrollSpeed_ * dt.asSeconds());
-
 		playerAircraft_->setVelocity(0.f, 0.f);
+
+		destroyEntitiesOutOfView();
 
 		guideMissiles();
 
@@ -64,6 +65,7 @@ namespace GEX
 		}
 
 		handleCollisions();
+		sceneGraph_.removeWrecks();
 
 		adaptPlayerVelocity();
 		sceneGraph_.update(dt, commands);
@@ -236,6 +238,20 @@ namespace GEX
 		}
 	}
 
+	void World::destroyEntitiesOutOfView()
+	{
+		Command command;
+		command.category = Category::Type::Projectile | Category::Type::EnemyAircraft;
+		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
+		{
+			if (!getBattlefieldBounds().intersects(e.getBoundingBox()))
+				e.remove();
+
+		});
+
+		commandQueue_.push(command);
+	}
+
 	void World::draw()
 	{
 		window_.setView(worldView_);
@@ -246,6 +262,16 @@ namespace GEX
 	{
 		return commandQueue_;
 		
+	}
+
+	bool World::hasALivePlayer() const
+	{
+		return !playerAircraft_->isMarkedForRemoval();
+	}
+
+	bool World::hasPlayerReachedEnd() const
+	{
+		return !worldBounds_.contains(playerAircraft_->getPosition());
 	}
 
 	void World::loadTextures()

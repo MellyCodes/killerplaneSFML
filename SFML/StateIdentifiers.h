@@ -34,6 +34,7 @@
 		 Menu,
 		 Game,
 		 Pause,
+		 GameOver,
 		 GEX,
 		 None
 	 };

@@ -46,6 +46,9 @@ namespace Category
 		FireSpread			= 1 << 9,
 		FireRate			= 1 << 10,
 		Pickup				= 1 << 11,
+
+		Aircraft			= PlayerAircraft | AlliedAircraft | EnemyAircraft,
+		Projectile			= EnemyProjectile | AlliedProjectile,
 	};
 
 }

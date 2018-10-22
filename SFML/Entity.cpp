@@ -77,6 +77,11 @@ namespace GEX
 		return (hitpoints_ <= 0);
 	}
 
+	void Entity::remove()
+	{
+		destroy();
+	}
+
 
 	void Entity::setVelocity(sf::Vector2f velocity)
 	{

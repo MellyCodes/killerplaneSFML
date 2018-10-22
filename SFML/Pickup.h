@@ -39,14 +39,15 @@ namespace GEX {
 			HealthRefill,
 			MissileRefill,
 			FireSpread,
-			FireRate
+			FireRate,
+			Count
 		};
 	public:
 		Pickup(Type type, const TextureManager& textures);
 		~Pickup() = default;
 
 		unsigned int			getCategory()const override;
-		sf::FloatRect			getBoundingRect();
+		sf::FloatRect			getBoundingBox() const override;
 		void					apply(Aircraft& player);
 
 	private:

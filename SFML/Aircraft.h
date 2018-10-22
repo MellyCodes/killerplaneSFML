@@ -60,6 +60,7 @@ namespace GEX
 
 		bool				isAllied()const;
 
+		bool				isMarkedForRemoval()const override;
 	protected:
 		void				updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
@@ -69,7 +70,11 @@ namespace GEX
 
 		void				createBullets(SceneNode& node, const TextureManager& textures);
 		void				createProjectiles(SceneNode& node, Projectile::Type type, float xOffset, float yOffset, const TextureManager& textures);
+
+		void				createPickup(SceneNode& node, const TextureManager& textures)const;
 		void				checkProjectileLaunch(sf::Time dt, CommandQueue& commands);
+
+		void				checkPickupDrop(CommandQueue& commands);
 
 
 	private:
@@ -83,7 +88,8 @@ namespace GEX
 
 		bool				isFiring_;
 		bool				isLaunchingMissile_;
-		//int					count = 0;
+		bool				isMarkedForRemoval_;
+		
 		int					fireRateLevel_;
 		int					fireSpreadLevel_;
 		int					missileAmmo_;
@@ -92,6 +98,7 @@ namespace GEX
 
 		Command				fireCommand_;
 		Command				launchMissileCommand_;
+		Command				dropPickupCommand_;
 
 
 

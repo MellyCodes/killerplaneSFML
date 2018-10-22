@@ -25,47 +25,20 @@
 * NBCC Academic Integrity Policy (policy 1111)
 */
 
-#include "Pickup.h"
-#include "Utility.h"
-#include "DataTables.h"
-#include "Category.h"
+#pragma once
 
-namespace GEX {
+#include "State.h"
+class GameOverState : public GEX::State
+{
+public:
+	GameOverState(GEX::StateStack& stack, Context context);
 
-	namespace
-	{
-		const std::map<Pickup::Type, PickupData> TABLE = initializePickupData();
-	}
+	void					draw() override;
+	bool					update(sf::Time dt)override;
+	bool					handleEvent(const sf::Event& event) override;
 
-	Pickup::Pickup(Type type, const TextureManager& textures)
-		: Entity(1)
-		, type_(type)
-		, sprite_(textures.get(TABLE.at(type).texture))
-	{
-		centerOrigin(sprite_);
-	}
-	unsigned int Pickup::getCategory() const
-	{
-		return Category::Pickup;
-	}
-
-	sf::FloatRect Pickup::getBoundingBox() const
-	{
-		return getWorldTransform().transformRect(sprite_.getGlobalBounds());
-	}
-
-
-
-	void Pickup::apply(Aircraft & player)
-	{
-		TABLE.at(type_).action(player);
-	}
-
-	void Pickup::drawCurrent(sf::RenderTarget & target, sf::RenderStates state) const
-	{
-		target.draw(sprite_, state);
-	}
-
-
-}
+private:
+	sf::Text				gameOverText_;
+	sf::Time				elapsedTime_;
+};
 
