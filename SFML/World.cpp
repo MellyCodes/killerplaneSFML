@@ -266,7 +266,7 @@ namespace GEX
 
 	bool World::hasALivePlayer() const
 	{
-		return !playerAircraft_->isMarkedForRemoval();
+		return !playerAircraft_->isDestroyed();
 	}
 
 	bool World::hasPlayerReachedEnd() const

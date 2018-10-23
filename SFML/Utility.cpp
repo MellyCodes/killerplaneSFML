@@ -29,6 +29,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <cassert>
@@ -37,7 +38,17 @@
 #define M_PI (3.141592)
 #endif
 
+#include <random>
 
+namespace 
+{
+	std::default_random_engine createRandomEngine()
+	{
+		auto seed = static_cast<unsigned long>(std::time(nullptr));
+		return std::default_random_engine(seed);
+	}
+	auto RandomEngine = createRandomEngine();
+}
 
 void centerOrigin(sf::Sprite& sprite)
 {
@@ -63,7 +74,8 @@ float toRadian(float degree)
 
 int randomInt(int exclusiveMax)
 {
-	return 1;
+	std::uniform_int_distribution<> distr(0, exclusiveMax - 1);
+	return distr(RandomEngine);
 }
 
 float length(sf::Vector2f vector)

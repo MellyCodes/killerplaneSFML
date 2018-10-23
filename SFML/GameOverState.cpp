@@ -12,7 +12,7 @@ GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	gameOverText_.setFont(font);
-	if (context.player->getMissionStatus() == GEX::MissionStatus::MissionFailure)  // MissionStatus needs implementing
+	if (context.player->getMissionStatus() == GEX::MissionStatus::MissionFailure) 
 	{
 		gameOverText_.setString("Mission Failure");
 	}
@@ -33,7 +33,7 @@ void GameOverState::draw()
 	window.setView(window.getDefaultView());
 
 	sf::RectangleShape backgroundShape;
-	backgroundShape.setFillColor(sf::Color(0, 0, 0, 150));
+	backgroundShape.setFillColor(sf::Color(100, 100, 100, 15));
 	backgroundShape.setSize(window.getView().getSize());
 
 	window.draw(backgroundShape);
