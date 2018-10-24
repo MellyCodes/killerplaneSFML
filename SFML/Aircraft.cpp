@@ -47,7 +47,7 @@ namespace GEX
 	Aircraft::Aircraft(AircraftType type, TextureManager & textures)
 		: Entity(TABLE.at(type).hitpoint)
 		, type_(type)
-		, sprite_(textures.get(TABLE.at(type).texture))
+		, sprite_(textures.get(TABLE.at(type).texture), TABLE.at(type).textureRect)
 		, healthDisplay_(nullptr)
 		, missileDisplay_(nullptr)
 		, travelDistance_(0.f)

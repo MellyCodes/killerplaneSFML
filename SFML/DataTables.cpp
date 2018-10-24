@@ -29,22 +29,27 @@
 #include "Projectile.h"
 #include "Pickup.h"
 
+#include "Particle.h"
 
 
 std::map<GEX::Pickup::Type, GEX::PickupData> GEX::initializePickupData()
 {
 	std::map<Pickup::Type, PickupData> data;
 
-	data[Pickup::Type::HealthRefill].texture = TextureID::HealthRefill;
+	data[Pickup::Type::HealthRefill].texture = TextureID::Entities;
+	data[Pickup::Type::HealthRefill].textureRect = sf::IntRect(0, 64, 40, 40);
 	data[Pickup::Type::HealthRefill].action = [](Aircraft& a) {a.repair(25); };
 
-	data[Pickup::Type::MissileRefill].texture = TextureID::MissileRefill;
+	data[Pickup::Type::MissileRefill].texture = TextureID::Entities;
+	data[Pickup::Type::MissileRefill].textureRect = sf::IntRect(40, 64, 40, 40);
 	data[Pickup::Type::MissileRefill].action = [](Aircraft& a) {a.collectMissiles(3); };
 
-	data[Pickup::Type::FireSpread].texture = TextureID::FireSpread;
+	data[Pickup::Type::FireSpread].texture = TextureID::Entities;
+	data[Pickup::Type::FireSpread].textureRect = sf::IntRect(80, 64, 40, 40);
 	data[Pickup::Type::FireSpread].action = [](Aircraft& a) {a.increaseFireSpread(); };
 
-	data[Pickup::Type::FireRate].texture = TextureID::FireRate;
+	data[Pickup::Type::FireRate].texture = TextureID::Entities;
+	data[Pickup::Type::FireRate].textureRect = sf::IntRect(120, 64, 40, 40);
 	data[Pickup::Type::FireRate].action = [](Aircraft& a) {a.increaseFireRate(); };
 
 	
@@ -58,15 +63,21 @@ std::map<GEX::Projectile::Type, GEX::ProjectileData> GEX::initializeProjectileDa
 
 	data[Projectile::Type::AlliedBullet].damage = 10;
 	data[Projectile::Type::AlliedBullet].speed = 300.f;
-	data[Projectile::Type::AlliedBullet].texture = TextureID::Bullet;
+	data[Projectile::Type::AlliedBullet].texture = TextureID::Entities;
+	data[Projectile::Type::AlliedBullet].textureRect = sf::IntRect(175, 64, 3, 14);
 
 	data[Projectile::Type::EnemyBulletType].damage = 10;
 	data[Projectile::Type::EnemyBulletType].speed = 300.f;
-	data[Projectile::Type::EnemyBulletType].texture = TextureID::Bullet;
+	data[Projectile::Type::EnemyBulletType].texture = TextureID::Entities;
+	data[Projectile::Type::EnemyBulletType].textureRect = sf::IntRect(175, 64, 3, 14);
+
 
 	data[Projectile::Type::Missile].damage = 200;
 	data[Projectile::Type::Missile].speed = 300.f;
-	data[Projectile::Type::Missile].texture = TextureID::Missile;
+	data[Projectile::Type::Missile].texture = TextureID::Entities;
+	data[Projectile::Type::Missile].textureRect = sf::IntRect(160, 64, 15, 24);
+
+
 
 	return data;
 }
@@ -79,24 +90,29 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	//player 
 	data[AircraftType::EAGLE].hitpoint = 100;
 	data[AircraftType::EAGLE].speed = 200.f;
-	data[AircraftType::EAGLE].texture = TextureID::Eagle;
+	data[AircraftType::EAGLE].texture = TextureID::Entities;
+	data[AircraftType::EAGLE].textureRect = sf::IntRect(0, 0, 48, 64);
 	data[AircraftType::EAGLE].fireInterval = sf::seconds(1);
 
 
-	// enemies
+	// enemies - RAPTOR TEXTURES AND MOVEMENTS
 	data[AircraftType::RAPTOR].hitpoint = 20;
 	data[AircraftType::RAPTOR].speed = 80.f;
-	data[AircraftType::RAPTOR].texture = TextureID::Raptor;
+	data[AircraftType::RAPTOR].texture = TextureID::Entities;
+	data[AircraftType::RAPTOR].textureRect = sf::IntRect(144, 0, 84, 64);
+
 
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(-45.f, 160.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
 	data[AircraftType::RAPTOR].fireInterval = sf::Time::Zero;
 
-
+	// enemies - AVENGER TEXTURES AND MOVEMENTS
 	data[AircraftType::AVENGER].hitpoint = 40;
 	data[AircraftType::AVENGER].speed = 50.f;
-	data[AircraftType::AVENGER].texture = TextureID::Avenger;
+	data[AircraftType::AVENGER].texture = TextureID::Entities;
+	data[AircraftType::AVENGER].textureRect = sf::IntRect(228, 0, 60, 59);
+
 
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(45.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(0.f, 50.f));
@@ -108,5 +124,19 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 
 	
 	
+	return data;
+}
+
+
+std::map<GEX::Particle::Type, GEX::ParticleData> GEX::initializeParticleData()
+{
+	std::map<GEX::Particle::Type, GEX::ParticleData> data;
+
+	data[Particle::Type::Propellant].color = sf::Color(255, 255, 50);
+	data[Particle::Type::Propellant].lifetime = sf::seconds(0.6f);
+
+	data[Particle::Type::Smoke].color = sf::Color(50, 50, 50);
+	data[Particle::Type::Smoke].lifetime = sf::seconds(4.f);
+
 	return data;
 }

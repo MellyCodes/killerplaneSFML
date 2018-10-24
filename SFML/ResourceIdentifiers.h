@@ -32,18 +32,14 @@ namespace GEX
 	enum class TextureID
 	{
 		Landscape,
-		Airplane,
-		Bullet,
-		Missile, 
-		Eagle, 
-		Raptor, 
-		Avenger, 
+		Jungle,
+		Airplane,		
 		TitleScreen, 
-		Face,
-		HealthRefill,
-		MissileRefill,
-		FireSpread,
-		FireRate,
+		Face,		
+		Entities,
+		Explosion,
+		Particle, 
+		FinishLine,		
 		
 	};
 

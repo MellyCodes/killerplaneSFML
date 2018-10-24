@@ -275,18 +275,9 @@ namespace GEX
 	}
 
 	void World::loadTextures()
-	{
-		textures_.load(TextureID::Landscape, "Media/Textures/Desert.png");
-		textures_.load(TextureID::Bullet, "Media/Textures/Bullet.png");
-		textures_.load(TextureID::Missile, "Media/Textures/Missile.png");
-		textures_.load(TextureID::Eagle, "Media/Textures/Eagle.png");
-		textures_.load(TextureID::Raptor, "Media/Textures/Raptor.png");
-		textures_.load(TextureID::Avenger, "Media/Textures/Avenger.png");
-		textures_.load(TextureID::HealthRefill, "Media/Textures/HealthRefill.png");
-		textures_.load(TextureID::MissileRefill, "Media/Textures/MissileRefill.png");
-		textures_.load(TextureID::FireRate, "Media/Textures/FireRate.png");
-		textures_.load(TextureID::FireSpread, "Media/Textures/FireSpread.png");
-		
+	{		
+		textures_.load(TextureID::Entities, "Media/Textures/Entities.png");
+		textures_.load(TextureID::Jungle, "Media/Textures/JungleBig.png");				
 	}
 
 	void World::buildScene()
@@ -302,7 +293,7 @@ namespace GEX
 		}
 
 		//background
-		sf::Texture& texture = textures_.get(TextureID::Landscape);
+		sf::Texture& texture = textures_.get(TextureID::Jungle);
 		sf::IntRect textureRect(worldBounds_);
 		texture.setRepeated(true);
 
