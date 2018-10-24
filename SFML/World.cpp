@@ -75,22 +75,47 @@ namespace GEX
 
 	void World::addEnemies()
 	{
+
+
+
+
 		addEnemy(AircraftType::RAPTOR, -250.f, 200.f);
 		addEnemy(AircraftType::RAPTOR, 0.f, 200.f);
 		addEnemy(AircraftType::RAPTOR, 250.f, 200.f);
 
+		addEnemy(AircraftType::AVENGER, -70.f, 400.f); 
+		addEnemy(AircraftType::AVENGER, 70.f, 400.f);
+
 		addEnemy(AircraftType::RAPTOR, -250.f, 600.f);
 		addEnemy(AircraftType::RAPTOR, 0.f, 600.f);
 		addEnemy(AircraftType::RAPTOR, 250.f, 600.f);
-
-		addEnemy(AircraftType::AVENGER, -70.f, 400.f); 
-		addEnemy(AircraftType::AVENGER, 70.f, 400.f);
 
 		addEnemy(AircraftType::AVENGER, -70.f, 800.f);
 		addEnemy(AircraftType::AVENGER, 70.f, 800.f);
 
 		addEnemy(AircraftType::AVENGER, -170.f, 850.f);
 		addEnemy(AircraftType::AVENGER, 170.f, 850.f);
+
+		///
+		/*addEnemy(AircraftType::AVENGER, -70.f, 1000.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 1000.f);
+
+		addEnemy(AircraftType::RAPTOR, -170.f, 1250.f);
+		addEnemy(AircraftType::RAPTOR, 170.f, 1250.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 1500.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 1500.f);
+
+		addEnemy(AircraftType::RAPTOR, -170.f, 1750.f);
+		addEnemy(AircraftType::RAPTOR, 170.f, 1750.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 2000.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 2000.f);
+
+		addEnemy(AircraftType::RAPTOR, -170.f, 2250.f);
+		addEnemy(AircraftType::RAPTOR, 170.f, 2250.f);*/
+
+
 
 		std::sort(enemySpawnPoints_.begin(), enemySpawnPoints_.end(), 
 			[](SpawnPoint lhs, SpawnPoint rhs)
