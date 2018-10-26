@@ -336,7 +336,7 @@ namespace GEX
 		// add player aircraft and game objects
 		std::unique_ptr<Aircraft> leader(new Aircraft(AircraftType::EAGLE, textures_));
 		leader->setPosition(spawnPosition_);
-		leader->setVelocity(50.f, scrollSpeed_*.3f);
+		leader->setVelocity(50.f, scrollSpeed_);
 		playerAircraft_ = leader.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(leader));
 

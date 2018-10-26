@@ -32,6 +32,7 @@
 #include "TextNode.h"
 #include "Command.h"
 #include "Projectile.h"
+#include "Animation.h" 
 
 namespace GEX
 {
@@ -61,6 +62,7 @@ namespace GEX
 		bool				isAllied()const;
 
 		bool				isMarkedForRemoval()const override;
+		void				remove();
 	protected:
 		void				updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
@@ -80,6 +82,9 @@ namespace GEX
 	private:
 		AircraftType		type_;
 		sf::Sprite			sprite_;
+
+		Animation			explosion_;
+		bool				showExplosion_;
 		TextNode*			healthDisplay_;
 		TextNode*			missileDisplay_;
 
@@ -99,6 +104,8 @@ namespace GEX
 		Command				fireCommand_;
 		Command				launchMissileCommand_;
 		Command				dropPickupCommand_;
+
+		bool				spawnPickup_;
 
 
 

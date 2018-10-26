@@ -48,6 +48,8 @@ namespace GEX
 		: Entity(TABLE.at(type).hitpoint)
 		, type_(type)
 		, sprite_(textures.get(TABLE.at(type).texture), TABLE.at(type).textureRect)
+		, explosion_(textures.get(TextureID::Explosion))
+		, showExplosion_(true)
 		, healthDisplay_(nullptr)
 		, missileDisplay_(nullptr)
 		, travelDistance_(0.f)
@@ -58,10 +60,17 @@ namespace GEX
 		, fireSpreadLevel_(1)
 		, missileAmmo_(12)
 		, fireCountdown_(sf::Time::Zero)
+		, spawnPickup_(false)
 		,	fireCommand_()
 	{
+		//Set up the explosion
+		explosion_.setFrameSize(sf::Vector2f(256, 256));
+		explosion_.setNumFrames(16);
+		explosion_.setDuration(sf::seconds(1));
+		centerOrigin(explosion_);
+		//centerOrigin(sprite_);
 
-		centerOrigin(sprite_);
+
 		//
 		//	Set Up Commands
 		//
@@ -205,13 +214,24 @@ namespace GEX
 
 	void Aircraft::checkPickupDrop(CommandQueue & commands)
 	{
-		if (!isAllied() && randomInt(2) == 0)
+		if (!isAllied() && randomInt(2) == 0 && !spawnPickup_)
 			commands.push(dropPickupCommand_);
+
+		spawnPickup_ = true;
 	}
 
 	void Aircraft::drawCurrent(sf::RenderTarget & target, sf::RenderStates states)const
 	{
-		target.draw(sprite_, states);
+		//target.draw(sprite_, states);
+
+		if (isDestroyed() && showExplosion_)
+		{
+			target.draw(explosion_, states);
+		}
+		else
+		{
+			target.draw(sprite_, states);
+		}
 	}
 
 	unsigned int Aircraft::getCategory() const
@@ -283,17 +303,25 @@ namespace GEX
 
 	bool Aircraft::isMarkedForRemoval() const
 	{
-		return isMarkedForRemoval_;
+		return (isDestroyed() && (explosion_.isFinished() || !showExplosion_));
+	}
+	void Aircraft::remove()
+	{
+		Entity::remove();
+		showExplosion_ = false;
 	}
 
 	void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
+
+
+
 		checkProjectileLaunch(dt, commands);
 
-		if (isDestroyed() && !isAllied())
+		if (isDestroyed())
 		{
 			checkPickupDrop(commands);
-			isMarkedForRemoval_ = true;
+			explosion_.update(dt); 
 			return;
 		}
 

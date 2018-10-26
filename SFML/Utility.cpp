@@ -63,6 +63,15 @@ void centerOrigin(sf::Text& text)
 	text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
+
+//////////////////////
+void centerOrigin(GEX::Animation& animation)
+{
+	sf::FloatRect bounds = animation.getLocalBounds();
+	animation.setOrigin(std::floor(bounds.width / 2.f), std::floor(bounds.height / 2.f));
+}
+////////////////////
+
 float toDegree(float radian)
 {
 	return 180.f / static_cast<float>(M_PI) * radian;

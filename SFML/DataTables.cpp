@@ -93,6 +93,7 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	data[AircraftType::EAGLE].texture = TextureID::Entities;
 	data[AircraftType::EAGLE].textureRect = sf::IntRect(0, 0, 48, 64);
 	data[AircraftType::EAGLE].fireInterval = sf::seconds(1);
+	data[AircraftType::EAGLE].hasRollAnimation = true;
 
 
 	// enemies - RAPTOR TEXTURES AND MOVEMENTS
@@ -106,6 +107,8 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(-45.f, 160.f));
 	data[AircraftType::RAPTOR].directions.emplace_back(Direction(45.f, 80.f));
 	data[AircraftType::RAPTOR].fireInterval = sf::Time::Zero;
+	data[AircraftType::RAPTOR].hasRollAnimation = true;
+
 
 	// enemies - AVENGER TEXTURES AND MOVEMENTS
 	data[AircraftType::AVENGER].hitpoint = 40;
@@ -120,6 +123,7 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(0.f, 50.f));
 	data[AircraftType::AVENGER].directions.emplace_back(Direction(45.f, 50.f));
 	data[AircraftType::AVENGER].fireInterval = sf::seconds(2);
+	data[AircraftType::AVENGER].hasRollAnimation = true;
 
 
 	
