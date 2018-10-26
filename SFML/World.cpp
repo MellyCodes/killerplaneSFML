@@ -28,6 +28,7 @@
 #include "World.h"
 #include "Aircraft.h"
 #include "Pickup.h"
+#include "ParticleNode.h"
 
 namespace GEX
 {
@@ -92,6 +93,25 @@ namespace GEX
 		addEnemy(AircraftType::AVENGER, -170.f, 850.f);
 		addEnemy(AircraftType::AVENGER, 170.f, 850.f);
 
+
+		///////////////////
+		addEnemy(AircraftType::RAPTOR, -250.f, 1000.f);
+		addEnemy(AircraftType::RAPTOR, 0.f, 1000.f);
+		addEnemy(AircraftType::RAPTOR, 250.f, 1000.f);
+
+		addEnemy(AircraftType::RAPTOR, -250.f, 1250.f);
+		addEnemy(AircraftType::RAPTOR, 0.f, 1250.f);
+		addEnemy(AircraftType::RAPTOR, 250.f, 1250.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 1800.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 1800.f);
+
+		addEnemy(AircraftType::AVENGER, -70.f, 2500.f);
+		addEnemy(AircraftType::AVENGER, 70.f, 2500.f);
+
+		addEnemy(AircraftType::AVENGER, -170.f, 3250.f);
+		addEnemy(AircraftType::AVENGER, 170.f, 3250.f);
+
 		std::sort(enemySpawnPoints_.begin(), enemySpawnPoints_.end(), 
 			[](SpawnPoint lhs, SpawnPoint rhs)
 			{
@@ -114,7 +134,7 @@ namespace GEX
 			std::unique_ptr<Aircraft> enemy(new Aircraft(spawnPoint.type, textures_));
 			enemy->setPosition(spawnPoint.x, spawnPoint.y);
 			enemy->setRotation(180);
-			sceneLayers_[Air]->attachChild(std::move(enemy));
+			sceneLayers_[UpperAir]->attachChild(std::move(enemy));
 			enemySpawnPoints_.pop_back();
 		}
 
@@ -189,7 +209,7 @@ namespace GEX
 			std::swap(colliders.first, colliders.second);
 			return true;
 		}
-		else 
+		else
 		{
 			return false;
 		}
@@ -266,7 +286,7 @@ namespace GEX
 
 	bool World::hasALivePlayer() const
 	{
-		return !playerAircraft_->isMarkedForRemoval();
+		return !playerAircraft_->isDestroyed();
 	}
 
 	bool World::hasPlayerReachedEnd() const
@@ -277,7 +297,11 @@ namespace GEX
 	void World::loadTextures()
 	{		
 		textures_.load(TextureID::Entities, "Media/Textures/Entities.png");
-		textures_.load(TextureID::Jungle, "Media/Textures/JungleBig.png");				
+		textures_.load(TextureID::Jungle, "Media/Textures/JungleBig.png");	
+		textures_.load(TextureID::Particle, "Media/Textures/Particle.png");
+		textures_.load(TextureID::Explosion, "Media/Textures/Explosion.png");
+		textures_.load(TextureID::FinishLine, "Media/Textures/FinishLine.png");
+
 	}
 
 	void World::buildScene()
@@ -286,13 +310,20 @@ namespace GEX
 		// initialize layers
 		for (int i = 0; i < LayerCount; ++i)
 		{
-			Category::Type category = (i == Air) ? Category::Type::AirSceneLayer : Category::Type::None;
+			Category::Type category = (i == UpperAir) ? Category::Type::AirSceneLayer : Category::Type::None;
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());
 			sceneGraph_.attachChild(std::move(layer));
 		}
 
-		//background
+		// Particle Systems
+		std::unique_ptr<ParticleNode> smoke(new ParticleNode(Particle::Type::Smoke, textures_));
+		sceneLayers_[LowerAir]->attachChild(std::move(smoke));
+
+		std::unique_ptr<ParticleNode> fire(new ParticleNode(Particle::Type::Propellant, textures_));
+		sceneLayers_[LowerAir]->attachChild(std::move(fire));
+
+		// background
 		sf::Texture& texture = textures_.get(TextureID::Jungle);
 		sf::IntRect textureRect(worldBounds_);
 		texture.setRepeated(true);
@@ -307,7 +338,7 @@ namespace GEX
 		leader->setPosition(spawnPosition_);
 		leader->setVelocity(50.f, scrollSpeed_*.3f);
 		playerAircraft_ = leader.get();
-		sceneLayers_[Air]->attachChild(std::move(leader));
+		sceneLayers_[UpperAir]->attachChild(std::move(leader));
 
 		// add enemy aircrafts
 		addEnemies();

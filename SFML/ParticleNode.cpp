@@ -13,7 +13,7 @@ namespace GEX {
 		,	texture_(textures.get(GEX::TextureID::Particle))
 		,	type_(type)
 		,	vertexArray_(sf::Quads)
-		,	needsVertexUpdate_(true)
+		,	needsVertexUpdate_(false)
 	{}
 
 	void ParticleNode::addParticle(sf::Vector2f position)
@@ -40,15 +40,16 @@ namespace GEX {
 	void ParticleNode::updateCurrent(sf::Time dt, CommandQueue & commands)
 	{
 		// remove aged out particles
-		while (!particles_.empty() && particles_.front().lifetime < sf::Time::Zero)		
+		while (!particles_.empty() && particles_.front().lifetime <= sf::Time::Zero)		
 			particles_.pop_front();		
 
 		// count down lifetimes
-		for (auto& p : particles_)
+		for (Particle& p : particles_)
 			p.lifetime -= dt;
 
 		// mark for update
-		needsVertexUpdate_ = true;
+		if (!particles_.empty())
+			needsVertexUpdate_ = true;
 	}
 
 	void ParticleNode::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
@@ -72,6 +73,8 @@ namespace GEX {
 		vertex.position = sf::Vector2f(worldx, worldy);
 		vertex.texCoords = sf::Vector2f(texCoordU, texCoordV);
 		vertex.color = color;
+
+		vertexArray_.append(vertex);
 	}
 
 	void ParticleNode::computeVertices() const
@@ -79,6 +82,7 @@ namespace GEX {
 		sf::Vector2f size(texture_.getSize());
 		sf::Vector2f half = size / 2.f;
 
+		vertexArray_.clear();
 		// refill vertex array;
 		for (const Particle& p : particles_)
 		{

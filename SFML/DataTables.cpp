@@ -89,7 +89,7 @@ std::map<GEX::AircraftType, GEX::AircraftData> GEX::initializeAircraftData()
 
 	//player 
 	data[AircraftType::EAGLE].hitpoint = 100;
-	data[AircraftType::EAGLE].speed = 200.f;
+	data[AircraftType::EAGLE].speed = 400.f;
 	data[AircraftType::EAGLE].texture = TextureID::Entities;
 	data[AircraftType::EAGLE].textureRect = sf::IntRect(0, 0, 48, 64);
 	data[AircraftType::EAGLE].fireInterval = sf::seconds(1);

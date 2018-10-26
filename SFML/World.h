@@ -75,7 +75,8 @@ namespace GEX
 		enum Layer
 		{
 			Backround = 0,
-			Air,
+			LowerAir,
+			UpperAir,
 			LayerCount
 		};
 

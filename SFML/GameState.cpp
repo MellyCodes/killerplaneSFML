@@ -50,6 +50,18 @@ bool GameState::update(sf::Time dt)
 
 	world_.update(dt, commands);
 
+	if (!world_.hasALivePlayer())
+	{
+		player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
+		requestStackPush(GEX::StateID::GameOver);
+
+	}
+	else if(world_.hasPlayerReachedEnd())
+	{
+		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
+		requestStackPush(GEX::StateID::GameOver);
+	}
+	   
 	return true;
 }
 
