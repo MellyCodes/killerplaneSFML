@@ -85,6 +85,9 @@ namespace GEX
 		keyBindings_[sf::Keyboard::Down] = Action::MOVE_DOWN;
 		keyBindings_[sf::Keyboard::S] = Action::MOVE_DOWN;
 
+		//keyBindings_[sf::Keyboard::R] = Action::ROLL_LEFT;
+		//keyBindings_[sf::Keyboard::L] = Action::ROLL_RIGHT;
+
 		// Fire Bullets
 		keyBindings_[sf::Keyboard::Space] = Action::FIRE;
 		// LaunchMissile
@@ -145,6 +148,7 @@ namespace GEX
 		actionBindings_[Action::MOVE_RIGHT].action = derivedAction<Aircraft>(AircraftMover(+playerSpeed, 0.f));
 		actionBindings_[Action::MOVE_UP].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
 		actionBindings_[Action::MOVE_DOWN].action = derivedAction<Aircraft>(AircraftMover(0.f, +playerSpeed));
+
 
 		// Fire and Launch Missile
 

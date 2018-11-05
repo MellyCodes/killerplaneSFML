@@ -39,9 +39,10 @@ GEX::TextNode::TextNode(const std::string& text)
 
 }
 
-void GEX::TextNode::setText(const std::string& text)
+void GEX::TextNode::setText(const std::string& text, const sf::Color color)
 {
 	text_.setString(text);
+	text_.setFillColor(color);
 	centerOrigin(text_);
 }
 

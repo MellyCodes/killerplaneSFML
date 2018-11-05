@@ -48,6 +48,7 @@ namespace GEX
 		unsigned int		getCategory() const override;
 
 		void				updateTexts(); // update mini health and missile display
+		void				updateLateralRoll();
 
 		void				fire();
 		void				launchMissile();
