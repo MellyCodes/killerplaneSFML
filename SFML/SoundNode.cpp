@@ -25,47 +25,24 @@
 * NBCC Academic Integrity Policy (policy 1111)
 */
 
-#pragma once
+#include "SoundNode.h"
+#include "SoundPlayer.h"
 
 namespace GEX
 {
-	enum class TextureID
-	{
-		Landscape,
-		Jungle,
-		Airplane,		
-		TitleScreen, 
-		Face,		
-		Entities,
-		Explosion,
-		Particle, 
-		FinishLine,		
-		
-	};
+	SoundNode::SoundNode(SoundPlayer& player)
+		:	SceneNode()
+		,	sounds_(player)
+	{}
 
-	enum class FontID
+	void SoundNode::playSound(SoundEffectID sound, sf::Vector2f position)
 	{
-		Main
-	};
 
-	enum SoundEffectID
+		sounds_.play(sound, position);
+	}
+
+	unsigned SoundNode::getCategory() const
 	{
-		AlliedGunfire,
-		EnemyGunfire,
-		Explosion1,
-		Explosion2,
-		LaunchMissile,
-		CollectPickup,
-		Button,
-	};
-
-	enum class MusicID
-	{
-		MenuTheme,
-		MissionTheme,
-	};
-
+		return Category::Type::SoundEffect;
+	}
 }
-
-
-

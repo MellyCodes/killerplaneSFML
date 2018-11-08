@@ -27,43 +27,36 @@
 
 #pragma once
 
+#include <SFML/Audio/Music.hpp>
+#include "ResourceIdentifiers.h"
+#include <map>
+#include <string>
+
 namespace GEX
 {
-	enum class TextureID
+	class MusicPlayer
 	{
-		Landscape,
-		Jungle,
-		Airplane,		
-		TitleScreen, 
-		Face,		
-		Entities,
-		Explosion,
-		Particle, 
-		FinishLine,		
-		
-	};
+	public:
+										MusicPlayer();
+										~MusicPlayer() = default;
 
-	enum class FontID
-	{
-		Main
-	};
+										MusicPlayer(const MusicPlayer&) = delete;
+		MusicPlayer&					operator=(const MusicPlayer&) = delete;
 
-	enum SoundEffectID
-	{
-		AlliedGunfire,
-		EnemyGunfire,
-		Explosion1,
-		Explosion2,
-		LaunchMissile,
-		CollectPickup,
-		Button,
-	};
+		void							play(MusicID theme);
+		void							stop();
+		void							setPaused(bool paused);
+		void							setVolume(float volume);
 
-	enum class MusicID
-	{
-		MenuTheme,
-		MissionTheme,
+
+	private:
+
+		sf::Music						music_;
+		std::map<MusicID, std::string>	filenames_;
+		float							volume_;
+	
 	};
+	
 
 }
 

@@ -27,45 +27,47 @@
 
 #pragma once
 
+#include "ResourceIdentifiers.h"
+
+#include <map>
+#include <memory>
+
+#include <list>
+#include <string>
+
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Sound.hpp>
+
+
 namespace GEX
 {
-	enum class TextureID
+	class SoundPlayer
 	{
-		Landscape,
-		Jungle,
-		Airplane,		
-		TitleScreen, 
-		Face,		
-		Entities,
-		Explosion,
-		Particle, 
-		FinishLine,		
-		
-	};
+	public:
+																		SoundPlayer();
+																		~SoundPlayer() = default;
+																		SoundPlayer(const SoundPlayer&) = delete;
+		SoundPlayer&													operator=(const SoundPlayer&) = delete;
 
-	enum class FontID
-	{
-		Main
-	};
+		void															play(SoundEffectID effect);
+		void															play(SoundEffectID effect, sf::Vector2f position);
 
-	enum SoundEffectID
-	{
-		AlliedGunfire,
-		EnemyGunfire,
-		Explosion1,
-		Explosion2,
-		LaunchMissile,
-		CollectPickup,
-		Button,
-	};
+		void															removeStoppedSounds();
+		void															setListenerPosition(sf::Vector2f position);
+		sf::Vector2f													getListenerPosition() const;
 
-	enum class MusicID
-	{
-		MenuTheme,
-		MissionTheme,
+	private:
+		void															loadBuffer(SoundEffectID id, const std::string path);
+
+
+	private:
+		std::map<SoundEffectID, std::unique_ptr<sf::SoundBuffer>>		soundBuffers_;
+		std::list<sf::Sound>											sounds_;
+
+	
 	};
 
 }
-
 
 

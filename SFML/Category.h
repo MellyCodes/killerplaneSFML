@@ -47,6 +47,7 @@ namespace Category
 		FireRate			= 1 << 10,
 		Pickup				= 1 << 11,
 		ParticleSystem		= 1 << 12,
+		SoundEffect			= 1 << 13,
 
 		Aircraft			= PlayerAircraft | AlliedAircraft | EnemyAircraft,
 		Projectile			= EnemyProjectile | AlliedProjectile,

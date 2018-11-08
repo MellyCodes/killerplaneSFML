@@ -27,45 +27,27 @@
 
 #pragma once
 
+#include "SceneNode.h"
+#include "SoundPlayer.h"
+
 namespace GEX
 {
-	enum class TextureID
+	class SoundPlayer;
+
+
+	class SoundNode : public SceneNode
 	{
-		Landscape,
-		Jungle,
-		Airplane,		
-		TitleScreen, 
-		Face,		
-		Entities,
-		Explosion,
-		Particle, 
-		FinishLine,		
+	public:
+		explicit			SoundNode(SoundPlayer& player);
 		
-	};
+		
+		
+		void				playSound(SoundEffectID sound, sf::Vector2f position);
+		unsigned int		getCategory() const override;
+	private:
 
-	enum class FontID
-	{
-		Main
+		SoundPlayer&		sounds_;
 	};
-
-	enum SoundEffectID
-	{
-		AlliedGunfire,
-		EnemyGunfire,
-		Explosion1,
-		Explosion2,
-		LaunchMissile,
-		CollectPickup,
-		Button,
-	};
-
-	enum class MusicID
-	{
-		MenuTheme,
-		MissionTheme,
-	};
-
 }
-
 
 

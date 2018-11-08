@@ -32,6 +32,9 @@
 #include "TextureManager.h"
 #include "StateIdentifiers.h"
 #include <memory>
+#include "MusicPlayer.h"
+
+
 
 namespace GEX
 {
@@ -39,6 +42,7 @@ namespace GEX
 	//forward declarations
 	class StateStack;
 	class PlayerControl;
+	class SoundPlayer;
 
 
 	class State
@@ -51,12 +55,16 @@ namespace GEX
 			Context(
 				sf::RenderWindow&   window,
 				TextureManager&		textures,
-				PlayerControl&		player
+				PlayerControl&		player,
+				MusicPlayer&		music,
+				SoundPlayer&		sound
 			);
 
 			sf::RenderWindow*   window;
 			TextureManager*		textures;
 			PlayerControl*		player;
+			MusicPlayer*		music;
+			SoundPlayer*		sound;
 
 		};
 

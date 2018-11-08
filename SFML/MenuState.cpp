@@ -28,6 +28,7 @@
 #include "MenuState.h"
 #include "Utility.h"
 #include "FontManager.h"
+#include "MusicPlayer.h"
 
 MenuState::MenuState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
@@ -58,6 +59,8 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	options_.push_back(exitOption);
 
 	updateOptionText();
+
+	context.music->play(GEX::MusicID::MenuTheme);
 
 }
 

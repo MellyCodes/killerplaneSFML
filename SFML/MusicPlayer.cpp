@@ -25,47 +25,48 @@
 * NBCC Academic Integrity Policy (policy 1111)
 */
 
-#pragma once
+#include "MusicPlayer.h"
 
 namespace GEX
 {
-	enum class TextureID
+	MusicPlayer::MusicPlayer()
+		:	music_()
+		,	filenames_()
+		,	volume_(10)
 	{
-		Landscape,
-		Jungle,
-		Airplane,		
-		TitleScreen, 
-		Face,		
-		Entities,
-		Explosion,
-		Particle, 
-		FinishLine,		
-		
-	};
+		filenames_[MusicID::MissionTheme] = "Media/Music/MissionTheme.ogg";
+		filenames_[MusicID::MenuTheme] = "Media/Music/MenuTheme.ogg";
 
-	enum class FontID
+	}
+
+	void MusicPlayer::play(MusicID theme)
 	{
-		Main
-	};
+		if(!music_.openFromFile(filenames_[theme]))
+		{
+			throw std::runtime_error("Music could not open file");
+		}
 
-	enum SoundEffectID
+		music_.setVolume(volume_);
+		music_.setLoop(true);
+		music_.play();
+	}
+
+	void MusicPlayer::stop()
 	{
-		AlliedGunfire,
-		EnemyGunfire,
-		Explosion1,
-		Explosion2,
-		LaunchMissile,
-		CollectPickup,
-		Button,
-	};
+		music_.stop();
+	}
 
-	enum class MusicID
+	void MusicPlayer::setPaused(bool paused)
 	{
-		MenuTheme,
-		MissionTheme,
-	};
+		if (paused)
+			music_.pause();
+		else
+			music_.play();
+	}
 
+	void MusicPlayer::setVolume(float volume)
+	{
+		volume_ = volume;
+		music_.setVolume(volume_);
+	}
 }
-
-
-

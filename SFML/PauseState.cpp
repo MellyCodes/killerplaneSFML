@@ -50,6 +50,13 @@ PauseState::PauseState(GEX::StateStack & stack, Context context)
 	sf::Vector2f viewSize = context.window->getView().getSize();
 	pauseText_.setPosition(0.5f * viewSize.x, 0.4f * viewSize.y);
 	instructionText_.setPosition(0.5f * viewSize.x, 0.6f * viewSize.y);
+
+	context.music->setPaused(true);
+}
+
+PauseState::~PauseState()
+{
+	getContext().music->setPaused(false);
 }
 
 void PauseState::draw()

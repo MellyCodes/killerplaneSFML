@@ -34,6 +34,8 @@
 #include "PlayerControl.h"
 #include "TextureManager.h"
 #include "StateStack.h"
+#include "MusicPlayer.h"
+#include "SoundPlayer.h"
 
 
 namespace sf {
@@ -63,6 +65,9 @@ private:
 	sf::RenderWindow			window_;	
 	GEX::PlayerControl			player_;
 	GEX::TextureManager			textures_;
+	GEX::MusicPlayer			music_;
+	GEX::SoundPlayer			sound_;
+
 	GEX::StateStack				stateStack_;
 
 	sf::Text					statisticsText_;
