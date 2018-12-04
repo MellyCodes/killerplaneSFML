@@ -28,6 +28,8 @@
 #include "TitleState.h"
 #include "Utility.h"
 #include "FontManager.h"
+#include "../../../../../../SFML/include/SFML/System/Time.hpp"
+#include "Application.h"
 
 TitleState::TitleState(GEX::StateStack & stack, Context context)
 	:	State(stack, context)

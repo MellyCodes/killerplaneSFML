@@ -29,6 +29,7 @@
 #include "Utility.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "FontManager.h"
+#include "GameState.h"
 
 
 GEX::TextNode::TextNode(const std::string& text)

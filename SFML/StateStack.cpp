@@ -49,6 +49,7 @@ namespace GEX
 			if (!(*itr)->update(dt))
 				break;
 		}
+		applyPendingChanges();
 	}
 
 	void StateStack::draw()
